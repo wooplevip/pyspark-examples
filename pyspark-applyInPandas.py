@@ -21,8 +21,6 @@ schema = ["employee_name", "department", "salary"]
   
   
 df = spark.createDataFrame(data=simpleData, schema = schema)
-#df.printSchema()
-#df.show(truncate=False)
 
 def fun(key, pdf):
     print(key)
@@ -30,7 +28,7 @@ def fun(key, pdf):
     label = 0
     if(s>10000):
         label = 1
-    return pd.DataFrame([key + (s,label,)])
+    return pd.DataFrame([key + (s,label)])
 
 rdf = df.groupBy("department").applyInPandas(fun, schema="department string, sum int, lable int")
 rdf.show()
